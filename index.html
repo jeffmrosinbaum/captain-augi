@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Captain Augi</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 <style>
@@ -91,6 +92,56 @@ button:focus-visible{outline:6px dashed #ff5fa2;outline-offset:3px}
 .mad .hero{animation:shake .25s linear 6}
 @media (max-width:520px){#app{padding:8px;gap:10px}.panel{padding:12px;box-shadow:5px 5px 0 var(--ink)}.choices{gap:10px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+/* ---------- v3 additions ---------- */
+.topbar{display:flex;justify-content:space-between;align-items:center;flex:0 0 auto;gap:10px}
+.stars{font-family:var(--title);letter-spacing:1px;font-size:clamp(1.5rem,5vw,2rem);background:#fff;border:4px solid var(--ink);border-radius:30px;padding:2px 14px;box-shadow:4px 4px 0 var(--ink)}
+.stars.bump{animation:bump .6s}
+.dots{display:flex;gap:6px}
+.dots span{width:clamp(16px,4vw,22px);height:clamp(16px,4vw,22px);border-radius:50%;border:3px solid var(--ink);background:#fff;display:block}
+.dots .done{background:var(--yellow)}
+.dots .now{background:var(--red);transform:scale(1.25)}
+.hero{width:clamp(100px,26vw,200px);max-height:27vh}
+.big-emoji{font-size:clamp(3.8rem,15vw,7.5rem)}
+.tools{display:flex;justify-content:center;align-items:center;gap:clamp(6px,2vw,14px);flex:0 0 auto}
+.tools .round{width:clamp(56px,13vw,80px);height:clamp(56px,13vw,80px);font-size:clamp(1.8rem,6vw,2.6rem);box-shadow:4px 4px 0 var(--ink)}
+.faces{display:flex;gap:clamp(5px,1.6vw,10px);background:rgba(255,255,255,.3);border:3px solid var(--ink);border-radius:60px;padding:5px}
+.faces .round{box-shadow:3px 3px 0 var(--ink)}
+.face.picked{background:var(--yellow);transform:scale(1.12)}
+.sep{width:clamp(4px,2vw,16px)}
+.peek-btn{background:#ffe066}
+.nudge{animation:bob .7s ease-in-out infinite;box-shadow:0 0 0 6px #fff,4px 4px 0 var(--ink)!important}
+.choice{min-height:clamp(140px,25vh,240px)}
+.choice:nth-child(3){background:#e2ffd6}
+.choices.n3{grid-template-columns:1fr 1fr 1fr;gap:10px}
+.choices.n3 .choice{padding:10px 4px}
+.choices.n3 .ic{font-size:clamp(3rem,11vw,5.5rem)}
+.choices.n3 .lb{font-size:clamp(1.1rem,4.2vw,2rem)}
+.choices.n3 .mini{width:42px;height:42px;font-size:1.25rem;top:5px;right:5px;border-width:3px}
+.choice.peeking{outline:6px solid #ffe066;outline-offset:2px}
+.badge-pop{display:inline-flex;align-items:center;gap:10px;background:#fff;border:5px solid var(--ink);border-radius:50px;padding:4px 20px 4px 8px;box-shadow:5px 5px 0 var(--ink);
+  font-family:var(--title);letter-spacing:1px;font-size:clamp(1.5rem,5vw,2.2rem);animation:pop2 .7s .4s cubic-bezier(.4,1.8,.5,1) both;position:relative;z-index:1}
+.badge-pop .bi{font-size:clamp(2.6rem,9vw,3.6rem);line-height:1}
+/* certificate */
+.cert{background:#fff!important;border:10px double var(--ink);gap:6px}
+.cert h2{font-family:var(--title);letter-spacing:2px;font-size:clamp(2rem,7vw,3.2rem);margin:0;color:var(--blue);text-shadow:2px 2px 0 var(--yellow)}
+.cert .name{font-family:var(--title);letter-spacing:3px;font-size:clamp(3.4rem,14vw,6rem);line-height:1;color:var(--red);margin:0;text-shadow:3px 3px 0 var(--ink)}
+.cert .hero{max-height:22vh}
+.cert .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;font-size:clamp(2.2rem,8vw,3.4rem);line-height:1}
+.cert .badges span{background:#fff3b0;border:4px solid var(--ink);border-radius:50%;width:1.6em;height:1.6em;display:grid;place-items:center}
+.cert .stars{box-shadow:none}
+.print{background:var(--yellow)}
+/* keep the big round buttons from pushing the page into scrolling on wide, short screens */
+.row .huge{width:clamp(110px,min(40vw,19vh),220px);height:clamp(110px,min(40vw,19vh),220px);font-size:clamp(3rem,min(14vw,9vh),6.5rem)}
+@keyframes pop2{0%{transform:scale(0) rotate(-20deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes bump{50%{transform:scale(1.35)}}
+@media (max-height:700px){.choice{min-height:clamp(120px,22vh,200px)}.hero{max-height:22vh}}
+@media print{
+  html,body{background:#fff!important}
+  .row,.speak,.confetti,.topbar{display:none!important}
+  #app{min-height:auto}
+  .panel{box-shadow:none;min-height:90vh}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 </head>
 <body>
@@ -99,85 +150,163 @@ button:focus-visible{outline:6px dashed #ff5fa2;outline-offset:3px}
 
 <script>
 /* =====================================================================
-   GAME CONTENT  -  EDIT EVERYTHING HERE
+   GAME CONTENT  -  EDIT EVERYTHING HERE   (Captain Augi v3)
    ---------------------------------------------------------------------
-   - "text"  = the few words shown on screen (keep it to ~6 words).
-   - "say"   = what the voice reads out loud (can be a bit longer).
-   - "audio" = OPTIONAL link to a recorded voice file (mp3/m4a), e.g.
-               "audio/mission1.mp3". Leave "" to use the computer voice.
-               If a file is missing or fails, the computer voice is used.
-   - Each mission has exactly 2 choices. Mark the hero choice good:true.
-     Mix up which side the good choice is on so Augi has to think.
-   - "icon" = an emoji shown big on the picture button.
+   - "text"  = the few words shown on screen (keep it to ~5 words).
+   - "say"   = what the voice reads out loud.
+   - "audio" = recorded voice file (audio/<id>.mp3, voice: Aria).
+               If you change a "say", re-record that file (or set "" and
+               the computer voice reads it). If a file fails, the computer
+               voice is used automatically.
+   - Each mission has 2 or 3 choices. good:true = hero choice.
+     A choice can have "step" (a short second step) instead of "result".
+   - "peek" = what the eye button says will probably happen.
    SAFETY: no hurting anyone, nothing scary, nothing shaming.
    ===================================================================== */
 const GAME = {
-  hero: { name: "Captain Augi", skin: "#f2c29b", hair: "#5a3b22", suit: "#2b6cff", cape: "#ef233c", mask: "#7b2cbf" },
-  voice: { rate: 0.85, pitch: 1.1 },   // slower = easier to follow
+  hero: { name: "Captain Augi", kid: "Augi", skin: "#f2c29b", hair: "#5a3b22", suit: "#2b6cff", cape: "#ef233c", mask: "#7b2cbf" },
+  voice: { rate: 0.85, pitch: 1.1 },   // computer-voice backup settings
 
-  title: { text: "Captain Augi!", say: "Captain Augi! Let's go, hero!", audio: "" },
+  title: { text: "Captain Augi!", say: "Captain Augi! Let's go, hero!", audio: "audio/title.mp3" },
+  howFeel: { say: "How do you feel? Tap a face.", audio: "audio/how-feel.mp3" },
+  faces: [
+    { icon: "😌", mood: "calm", label: "Calm", say: "Calm. You're ready to choose!", audio: "audio/face-calm.mp3" },
+    { icon: "🤔", mood: "hmm",  label: "Hmm",  say: "Hmm. Let's peek and think!", audio: "audio/face-hmm.mp3" },
+    { icon: "😡", mood: "mad",  label: "Mad",  say: "Mad is okay. Let's take a hero breath!", audio: "audio/face-mad.mp3" }
+  ],
 
   missions: [
-    { // 1. Recess vs. doing work
-      scene: ["🏫", "👩‍🏫"],
+    { // 1. Work first, then recess
+      id: "work", scene: ["🏫", "👩‍🏫"],
       text: "Work first. Then recess!",
-      say: "Your teacher says: Do your work first. Then it's recess!",
-      audio: "",
+      say: "Your teacher says: Do your work first. Then it's recess!", audio: "audio/m1-scene.mp3",
+      badge: { icon: "📚", name: "Work Hero", say: "You got the Work Hero badge!", audio: "audio/m1-badge.mp3" },
       choices: [
-        { icon: "📚", label: "Do my work", say: "Do my work.", audio: "", good: true,
-          result: { icon: "⚽", text: "Recess time! Yay!", say: "You did your work. Now you get to play at recess!", audio: "" } },
-        { icon: "🙅", label: "Say NO!", say: "Say no!", audio: "", good: false,
-          result: { icon: "⏰", text: "Oh no. No recess.", say: "Oh no. Recess is over, and the work is still there. Let's try again.", audio: "" } }
+        { icon: "📚", label: "Do my work", say: "Do my work.", audio: "audio/m1-c1.mp3", good: true,
+          peek: { say: "Do my work? Then I get recess!", audio: "audio/m1-c1-peek.mp3" },
+          result: { icon: "⚽", text: "Recess time! Yay!", say: "You did your work. Now you get to play at recess!", audio: "audio/m1-c1-result.mp3" } },
+        { icon: "🙅", label: "Say NO!", say: "Say no!", audio: "audio/m1-c2.mp3", good: false,
+          peek: { say: "Say no? Then I miss recess, and the work still waits.", audio: "audio/m1-c2-peek.mp3" },
+          result: { icon: "⏰", text: "Oh no. No recess.", say: "Oh no. Recess is over, and the work is still there. Let's try again.", audio: "audio/m1-c2-result.mp3" } }
       ]
     },
-    { // 2. Teacher says "start now"
-      scene: ["📖", "👨‍🏫"],
+    { // 2. Start your work now
+      id: "start", scene: ["📖", "👨‍🏫"],
       text: "Start your work now.",
-      say: "Your teacher says: Time to start your work now.",
-      audio: "",
+      say: "Your teacher says: Time to start your work now.", audio: "audio/m2-scene.mp3",
+      badge: { icon: "🚀", name: "Go Power", say: "You got the Go Power badge!", audio: "audio/m2-badge.mp3" },
       choices: [
-        { icon: "🙈", label: "Push it away", say: "Push it away.", audio: "", good: false,
-          result: { icon: "📄", text: "The work is still waiting.", say: "Hmm. The work is still waiting for you. Let's try again.", audio: "" } },
-        { icon: "💪", label: "Start now", say: "Start now.", audio: "", good: true,
-          result: { icon: "🌟", text: "You started! Great job!", say: "You started! The hardest part is done. Great job!", audio: "" } }
+        { icon: "🙈", label: "Push it away", say: "Push it away.", audio: "audio/m2-c1.mp3", good: false,
+          peek: { say: "Push it away? The work will still be waiting.", audio: "audio/m2-c1-peek.mp3" },
+          result: { icon: "📄", text: "The work is still waiting.", say: "Hmm. The work is still waiting for you. Let's try again.", audio: "audio/m2-c1-result.mp3" } },
+        { icon: "💪", label: "Start now", say: "Start now.", audio: "audio/m2-c2.mp3", good: true,
+          peek: { say: "Start now? Then I finish sooner!", audio: "audio/m2-c2-peek.mp3" },
+          result: { icon: "🌟", text: "You started! Great job!", say: "You started! The hardest part is done. Great job!", audio: "audio/m2-c2-result.mp3" } }
       ]
     },
-    { // 3. Screen time is over
-      scene: ["🎮", "🧑"],
+    { // 3. Someone cuts in line (3 choices + a second step)
+      id: "line", scene: ["🛝", "🧒"],
+      text: "Max cut in line!",
+      say: "You wait for the slide. Then Max cuts in front of you!", audio: "audio/m3-scene.mp3",
+      badge: { icon: "🎯", name: "Fair Play", say: "You got the Fair Play badge!", audio: "audio/m3-badge.mp3" },
+      choices: [
+        { icon: "😤", label: "Stomp off", say: "Stomp off.", audio: "audio/m3-c1.mp3", good: false,
+          peek: { say: "Stomp off? Then I get no turn at all.", audio: "audio/m3-c1-peek.mp3" },
+          result: { icon: "⛔", text: "No turn at all.", say: "You stomped away, so you didn't get a turn at all. Let's try again.", audio: "audio/m3-c1-result.mp3" } },
+        { icon: "🗣️", label: "I was here first", say: "Say: I was here first.", audio: "audio/m3-c2.mp3",
+          peek: { say: "Say it in a calm, strong voice? Max might listen.", audio: "audio/m3-c2-peek.mp3" },
+          step: {
+            scene: ["🛝", "🤷"],
+            text: "Max says, \"So?\"",
+            say: "Max just shrugs and says: So?", audio: "audio/m3-step.mp3",
+            choices: [
+              { icon: "📢", label: "Yell NO FAIR!", say: "Yell: No fair!", audio: "audio/m3-s1.mp3", good: false,
+                peek: { say: "Yell? Then there could be a big fuss.", audio: "audio/m3-s1-peek.mp3" },
+                result: { icon: "⏸️", text: "Slide closed. Oh no.", say: "Now there's a big fuss. The recess helper closes the slide for a few minutes. Let's try again.", audio: "audio/m3-s1-result.mp3" } },
+              { icon: "🙋", label: "Tell the helper", say: "Tell the recess helper.", audio: "audio/m3-s2.mp3", good: true,
+                peek: { say: "Tell the helper? The helper can keep it fair.", audio: "audio/m3-s2-peek.mp3" },
+                result: { icon: "🛝", text: "Your turn! WHEE!", say: "The helper reminds Max to take turns. Now it's your turn. Whee!", audio: "audio/m3-s2-result.mp3" } }
+            ]
+          } },
+        { icon: "😎", label: "Let it go", say: "Let it go.", audio: "audio/m3-c3.mp3", good: true,
+          peek: { say: "Let it go? I still get a turn really soon.", audio: "audio/m3-c3-peek.mp3" },
+          result: { icon: "🛝", text: "Your turn soon! WHEE!", say: "You let it go. One turn later, you zoom down the slide. Whee!", audio: "audio/m3-c3-result.mp3" } }
+      ]
+    },
+    { // 4. Screen time is over (3 choices + a second step)
+      id: "screen", scene: ["🎮", "🧑"],
       text: "Tablet off now, please.",
-      say: "Screen time is over. Tablet off now, please.",
-      audio: "",
+      say: "Screen time is over. Tablet off now, please.", audio: "audio/m4-scene.mp3",
+      badge: { icon: "🔌", name: "Power Down", say: "You got the Power Down badge!", audio: "audio/m4-badge.mp3" },
       choices: [
-        { icon: "📴", label: "Turn it off", say: "Turn it off.", audio: "", good: true,
-          result: { icon: "🍪", text: "Snack time! So proud!", say: "You turned it off all by yourself. Snack time! Everyone is so proud.", audio: "" } },
-        { icon: "🎮", label: "Keep playing", say: "Keep playing.", audio: "", good: false,
-          result: { icon: "📵", text: "No tablet tomorrow.", say: "Uh oh. Now the tablet has to rest tomorrow too. Let's try again.", audio: "" } }
+        { icon: "🎮", label: "Keep playing", say: "Keep playing.", audio: "audio/m4-c1.mp3", good: false,
+          peek: { say: "Keep playing? Then no tablet tomorrow.", audio: "audio/m4-c1-peek.mp3" },
+          result: { icon: "📵", text: "No tablet tomorrow.", say: "Uh oh. Now the tablet has to rest tomorrow too. Let's try again.", audio: "audio/m4-c1-result.mp3" } },
+        { icon: "📴", label: "Turn it off", say: "Turn it off.", audio: "audio/m4-c2.mp3", good: true,
+          peek: { say: "Turn it off? Then everyone is proud of me!", audio: "audio/m4-c2-peek.mp3" },
+          result: { icon: "🍪", text: "Snack time! So proud!", say: "You turned it off all by yourself. Snack time! Everyone is so proud.", audio: "audio/m4-c2-result.mp3" } },
+        { icon: "💾", label: "Ask to save", say: "Ask to save my game first.", audio: "audio/m4-c3.mp3",
+          peek: { say: "Ask to save first? Maybe the grown-up says yes!", audio: "audio/m4-c3-peek.mp3" },
+          step: {
+            scene: ["💾", "🧑"],
+            text: "Okay! Save it now.",
+            say: "The grown-up says: Good asking! Save your game now.", audio: "audio/m4-step.mp3",
+            choices: [
+              { icon: "🥺", label: "Beg for more", say: "Beg for one more level.", audio: "audio/m4-s1.mp3", good: false,
+                peek: { say: "Beg for more? The answer stays the same.", audio: "audio/m4-s1-peek.mp3" },
+                result: { icon: "⌛", text: "Off anyway. No snack.", say: "The tablet goes off anyway, and the begging used up snack time. Let's try again.", audio: "audio/m4-s1-result.mp3" } },
+              { icon: "✅", label: "Save and stop", say: "Save it and stop.", audio: "audio/m4-s2.mp3", good: true,
+                peek: { say: "Save and stop? My game waits for tomorrow!", audio: "audio/m4-s2-peek.mp3" },
+                result: { icon: "🍪", text: "Saved! Snack time!", say: "Game saved! You turned it off. Now it's snack time!", audio: "audio/m4-s2-result.mp3" } }
+            ]
+          } }
       ]
     },
-    { // 4. A hard problem: ask for help
-      scene: ["🧩", "😣"],
+    { // 5. A hard problem (3 choices)
+      id: "hard", scene: ["🧩", "😣"],
       text: "This is SO hard!",
-      say: "This problem is so hard!",
-      audio: "",
+      say: "This problem is so hard!", audio: "audio/m5-scene.mp3",
+      badge: { icon: "🧠", name: "Brain Power", say: "You got the Brain Power badge!", audio: "audio/m5-badge.mp3" },
       choices: [
-        { icon: "🗑️", label: "Crumple it", say: "Crumple it up.", audio: "", good: false,
-          result: { icon: "📄", text: "Now start over.", say: "Oh no. Now you have to start all over. Let's try again.", audio: "" } },
-        { icon: "🙋", label: "Ask for help", say: "Ask for help.", audio: "", good: true,
-          result: { icon: "💡", text: "You figured it out!", say: "Your teacher helped, and you figured it out! Asking for help is a hero move.", audio: "" } }
+        { icon: "🙋", label: "Ask for help", say: "Ask for help.", audio: "audio/m5-c1.mp3", good: true,
+          peek: { say: "Ask for help? Then I can figure it out!", audio: "audio/m5-c1-peek.mp3" },
+          result: { icon: "💡", text: "You figured it out!", say: "Your teacher helped, and you figured it out! Asking for help is a hero move.", audio: "audio/m5-c1-result.mp3" } },
+        { icon: "🗑️", label: "Crumple it", say: "Crumple it up.", audio: "audio/m5-c2.mp3", good: false,
+          peek: { say: "Crumple it? Then I have to start all over.", audio: "audio/m5-c2-peek.mp3" },
+          result: { icon: "📄", text: "Now start over.", say: "Oh no. Now you have to start all over. Let's try again.", audio: "audio/m5-c2-result.mp3" } },
+        { icon: "💧", label: "Water break", say: "Take a water break.", audio: "audio/m5-c3.mp3", good: true,
+          peek: { say: "A water break? My brain can cool down.", audio: "audio/m5-c3-peek.mp3" },
+          result: { icon: "💧", text: "Ahh! Now you got it!", say: "Gulp, gulp. Ahh. Your brain feels cool, and now you can do it!", audio: "audio/m5-c3-result.mp3" } }
+      ]
+    },
+    { // 6. Losing a game
+      id: "lose", scene: ["🎲", "👧"],
+      text: "Lily won the game!",
+      say: "You play a game with Lily. Lily wins!", audio: "audio/m6-scene.mp3",
+      badge: { icon: "🤝", name: "Good Sport", say: "You got the Good Sport badge!", audio: "audio/m6-badge.mp3" },
+      choices: [
+        { icon: "🚪", label: "Quit", say: "Quit the game.", audio: "audio/m6-c1.mp3", good: false,
+          peek: { say: "Quit? Then Lily plays with someone else.", audio: "audio/m6-c1-peek.mp3" },
+          result: { icon: "👋", text: "Lily plays with a friend.", say: "You quit, so Lily plays with someone else. Let's try again.", audio: "audio/m6-c1-result.mp3" } },
+        { icon: "🙌", label: "Good game! Again?", say: "Say: Good game! Again?", audio: "audio/m6-c2.mp3", good: true,
+          peek: { say: "Say good game? Then we can play again!", audio: "audio/m6-c2-peek.mp3" },
+          result: { icon: "🎲", text: "Rematch! So fun!", say: "Lily grins and says: Yes! Rematch! Win or lose, it's fun with a friend.", audio: "audio/m6-c2-result.mp3" } }
       ]
     }
   ],
 
-  choicesIntro: { say: "Will you", audio: "" },   // read before the choices: "Will you ... Do my work? Or ... Say no?"
-  or:           { say: "or", audio: "" },
+  choicesIntro: { say: "Will you", audio: "audio/will-you.mp3" },   // "Will you ... Do my work? Or ... Say no?"
+  or:           { say: "or", audio: "audio/or.mp3" },
+  peekIntro:    { say: "Let's peek! What will happen?", audio: "audio/peek-intro.mp3" },
   breathe: {
-    start: { say: "Let's take three hero breaths.", audio: "" },
-    in:    { say: "Breathe in...", audio: "" },
-    out:   { say: "and out.", audio: "" },
-    done:  { say: "Great breathing! Now choose.", audio: "" }
+    start: { say: "Let's take three hero breaths.", audio: "audio/breathe-start.mp3" },
+    in:    { say: "Breathe in...", audio: "audio/breathe-in.mp3" },
+    out:   { say: "and out.", audio: "audio/breathe-out.mp3" },
+    done:  { say: "Great breathing! Now choose.", audio: "audio/breathe-done.mp3" }
   },
   goodBurst: "YAY!",
-  end: { text: "You're a hero!", say: "You did it! You're a hero, Captain Augi!", audio: "" }
+  certificate: { title: "Hero Certificate", text: "Super Chooser!",
+    say: "Hero certificate! Augi is a super chooser. Stop, breathe, think, then choose. Great job, hero!", audio: "audio/certificate.mp3" }
 };
 
 /* =====================================================================
@@ -185,66 +314,87 @@ const GAME = {
    ===================================================================== */
 const H = GAME.hero, app = document.getElementById('app'), breathEl = document.getElementById('breath');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-let mission = 0, calm = false, lastLines = [];
+let mission = 0, node = null, mood = 'mad', stars = 0, earned = [], lastLines = [];
 
-/* ---------- Voice: plays recorded audio if given, else speechSynthesis ---------- */
-let voiceToken = 0, currentAudio = null, chosenVoice = null;
+/* ---------- Voice: recorded Aria mp3 first, computer voice as backup ----------
+   One reusable <audio> element: it is unlocked by the PLAY tap, so phones
+   (iPhone/iPad) keep letting it play every later line. */
+const player = new Audio(); player.preload = 'auto';
+let voiceToken = 0, chosenVoice = null;
 function pickVoice() {
   if (!('speechSynthesis' in window)) return;
   const v = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
-  chosenVoice = v.find(x => /samantha|google us english|aria|jenny|zira/i.test(x.name)) || v[0] || null;
+  chosenVoice = v.find(x => /aria|samantha|google us english|jenny|zira/i.test(x.name)) || v[0] || null;
 }
 if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 
 function stopVoice() {
   voiceToken++;
-  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  player.onended = player.onerror = null;
+  try { player.pause(); } catch (e) {}
   if ('speechSynthesis' in window) speechSynthesis.cancel();
-  document.querySelectorAll('.reading').forEach(e => e.classList.remove('reading'));
+  document.querySelectorAll('.reading,.peeking').forEach(e => e.classList.remove('reading', 'peeking'));
 }
-function sayOne(line, token) {   // returns a Promise that resolves when the line is finished
+function sayOne(line, token) {   // Promise that resolves when the line is finished
   return new Promise(resolve => {
-    if (token !== voiceToken) return resolve();
+    if (token !== voiceToken || !line) return resolve();
+    let done = false, started = false, fellBack = false;
+    const fin = () => { if (!done) { done = true; resolve(); } };
     const tts = () => {
-      if (!('speechSynthesis' in window) || !line.say) return setTimeout(resolve, 300);
+      if (fellBack || done || token !== voiceToken) return; fellBack = true;
+      player.onended = player.onerror = null;
+      if (!('speechSynthesis' in window) || !line.say) return setTimeout(fin, 300);
       const u = new SpeechSynthesisUtterance(line.say);
       u.rate = GAME.voice.rate; u.pitch = GAME.voice.pitch; u.lang = 'en-US';
       if (chosenVoice) u.voice = chosenVoice;
-      let done = false; const fin = () => { if (!done) { done = true; resolve(); } };
       u.onend = fin; u.onerror = fin;
-      setTimeout(fin, 1500 + line.say.length * 110);   // safety net if a browser never fires onend
+      setTimeout(fin, 1500 + line.say.length * 110);   // safety net
       speechSynthesis.speak(u);
     };
     if (line.audio) {
-      const a = new Audio(line.audio); currentAudio = a;
-      a.onended = resolve; a.onerror = tts;
-      a.play().catch(tts);
+      player.onended = () => { if (token === voiceToken) fin(); };
+      player.onerror = tts;
+      player.onplaying = () => { started = true; };
+      player.src = line.audio;
+      const p = player.play();
+      if (p && p.catch) p.catch(err => { if (token === voiceToken && !started) tts(); });
+      setTimeout(() => { if (!started && !done && token === voiceToken) { try { player.pause(); } catch (e) {} tts(); } }, 6000);
+      setTimeout(fin, 20000);   // never hang forever
     } else tts();
   });
 }
-async function speak(lines) {    // lines: [{say, audio, el}] spoken in order; el gets a pulse while read
+async function speak(lines) {    // lines: [{say, audio, el, cls}] spoken in order; el pulses while read
   stopVoice(); lastLines = lines;
   const token = voiceToken;
   for (const line of lines) {
     if (token !== voiceToken) return;
     const el = line.el ? document.querySelector(line.el) : null;
-    if (el) el.classList.add('reading');
+    const cls = line.cls || 'reading';
+    if (el) el.classList.add(cls);
     await sayOne(line, token);
-    if (el) el.classList.remove('reading');
+    if (el) el.classList.remove(cls);
   }
 }
 const replay = () => speak(lastLines);
+function prefetch(list) {   // warm the browser cache so lines start fast
+  list.forEach(s => { if (s) fetch(s).catch(() => {}); });
+}
+function audioOf(o, out = []) {
+  if (o && typeof o === 'object') { if (typeof o.audio === 'string' && o.audio) out.push(o.audio); Object.values(o).forEach(v => audioOf(v, out)); }
+  return out;
+}
 
-/* ---------- Hero picture (inline SVG). mood: mad | calm | happy | oops ---------- */
+/* ---------- Hero picture (inline SVG). mood: mad | calm | hmm | happy | oops ---------- */
 function heroSVG(mood) {
   const brows = { mad: '<path d="M70 58 L92 66"/><path d="M130 58 L108 66"/>', calm: '<path d="M72 60 L92 60"/><path d="M108 60 L128 60"/>',
-    happy: '<path d="M72 58 Q82 50 92 58"/><path d="M108 58 Q118 50 128 58"/>', oops: '<path d="M72 62 L92 57"/><path d="M108 57 L128 62"/>' }[mood];
+    happy: '<path d="M72 58 Q82 50 92 58"/><path d="M108 58 Q118 50 128 58"/>', oops: '<path d="M72 62 L92 57"/><path d="M108 57 L128 62"/>', hmm: '<path d="M72 56 Q82 50 92 56"/><path d="M108 62 L128 60"/>' }[mood];
   const mouth = { mad: '<path d="M84 98 Q100 88 116 98" fill="none"/>', calm: '<path d="M86 94 Q100 104 114 94" fill="none"/>',
-    happy: '<path d="M82 90 Q100 116 118 90 Z" fill="#fff"/>', oops: '<path d="M86 100 Q100 92 114 100" fill="none"/>' }[mood];
+    happy: '<path d="M82 90 Q100 116 118 90 Z" fill="#fff"/>', oops: '<path d="M86 100 Q100 92 114 100" fill="none"/>', hmm: '<path d="M88 98 L112 94" fill="none"/>' }[mood];
   const arms = { mad: '<path d="M66 122 L50 168" fill="none"/><path d="M134 122 L150 168" fill="none"/>',
     calm: '<path d="M66 122 L44 156 L64 172" fill="none"/><path d="M134 122 L156 156 L136 172" fill="none"/>',
     happy: `<path d="M66 122 L36 70" fill="none"/><circle cx="34" cy="64" r="11" fill="${H.skin}"/><path d="M134 122 L164 70" fill="none"/><circle cx="166" cy="64" r="11" fill="${H.skin}"/>`,
-    oops: '<path d="M66 122 L52 170" fill="none"/><path d="M134 122 L148 170" fill="none"/>' }[mood];
+    oops: '<path d="M66 122 L52 170" fill="none"/><path d="M134 122 L148 170" fill="none"/>',
+    hmm: `<path d="M66 122 L50 168" fill="none"/><path d="M134 122 L166 96 L156 52" fill="none"/><circle cx="154" cy="46" r="11" fill="${H.skin}"/>` }[mood];
   const steam = mood === 'mad' ? '<g fill="#fff" stroke-width="3"><circle cx="58" cy="22" r="9"/><circle cx="46" cy="10" r="6"/><circle cx="142" cy="22" r="9"/><circle cx="154" cy="10" r="6"/></g>' : '';
   const tear = mood === 'oops' ? '<path d="M126 80 Q130 90 126 94 Q122 90 126 80 Z" fill="#7fd3ff" stroke-width="2"/>' : '';
   const cheek = mood === 'mad' ? '#ef233c' : '#ff8fab';
@@ -270,6 +420,15 @@ function heroSVG(mood) {
 }
 const speakerBtn = () => `<button class="round speak" onclick="replay()" aria-label="Hear it again">🔊</button>`;
 function show(html) { app.innerHTML = html; window.scrollTo(0, 0); }
+const confetti = n => `<div class="confetti">${Array.from({ length: n }, (_, i) =>
+  `<span style="left:${(i * 37) % 100}%;animation-delay:${(i % 6) * 0.15}s">${['⭐', '🎉', '✨'][i % 3]}</span>`).join('')}</div>`;
+function topbar() {
+  return `<div class="topbar">
+    <div class="stars" id="stars" aria-label="Stars">⭐ ${stars}</div>
+    <div class="dots" aria-hidden="true">${GAME.missions.map((m, i) =>
+      `<span class="${earned.includes(i) ? 'done' : ''} ${i === mission ? 'now' : ''}"></span>`).join('')}</div>
+  </div>`;
+}
 
 /* ---------- Screens ---------- */
 function titleScreen() {
@@ -281,70 +440,110 @@ function titleScreen() {
     </section>`);
 }
 function start() {
-  // This tap "unlocks" the voice on phones and tablets.
-  if ('speechSynthesis' in window) { speechSynthesis.cancel(); speechSynthesis.speak(new SpeechSynthesisUtterance('')); }
-  mission = 0; missionScreen(true);
+  // This tap "unlocks" sound on phones and tablets: the first mp3 starts
+  // playing inside the tap, and the computer voice gets a silent warm-up.
+  if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); }
+  mission = 0; stars = 0; earned = [];
+  missionScreen({ first: true });
+  setTimeout(() => prefetch(audioOf(GAME)), 1500);
 }
 
-function missionScreen(withTitle, quiet) {
+function missionScreen(opt = {}) {
   const m = GAME.missions[mission];
-  show(`<section class="panel ${calm ? '' : 'mad'}" style="background-color:#ffe3ec">
+  if (!opt.keep) { node = m; mood = 'mad'; }
+  const isStart = node === m, n = node.choices.length;
+  show(`${topbar()}
+    <section class="panel ${mood === 'mad' ? 'mad' : ''}" style="background-color:${isStart ? '#ffe3ec' : '#ffeccc'}">
       ${speakerBtn()}
-      <div class="bubble"><p class="words" id="scene-words">${esc(m.text)}</p></div>
-      <div class="stage">${heroSVG(calm ? 'calm' : 'mad')}<span class="big-emoji">${m.scene.join(' ')}</span></div>
+      <div class="bubble"><p class="words" id="scene-words">${esc(node.text)}</p></div>
+      <div class="stage">${heroSVG(mood)}<span class="big-emoji">${node.scene.join(' ')}</span></div>
     </section>
-    <button class="round breathe-btn" onclick="breathe()" aria-label="Breathe">🌬️</button>
-    <div class="choices">
-      ${m.choices.map((c, k) => `
-        <button class="choice" id="choice${k}" data-good="${c.good}" onclick="choose(${k})" aria-label="${esc(c.label)}">
-          <span class="mini" role="button" aria-label="Hear this choice" onclick="event.stopPropagation(); speak([{say:GAME.missions[mission].choices[${k}].say, audio:GAME.missions[mission].choices[${k}].audio, el:'#choice${k}'}])">🔊</span>
+    <div class="tools">
+      <div class="faces" role="group" aria-label="How do you feel?">
+        ${GAME.faces.map((f, i) => `<button class="round face ${mood === f.mood && opt.picked ? 'picked' : ''}" id="face${i}" onclick="pickFace(${i})" aria-label="${esc(f.label)}">${f.icon}</button>`).join('')}
+      </div>
+      <span class="sep"></span>
+      <button class="round breathe-btn" id="breathe-btn" onclick="breathe()" aria-label="Breathe">🌬️</button>
+      <button class="round peek-btn" id="peek-btn" onclick="peek()" aria-label="Peek ahead">👁️</button>
+    </div>
+    <div class="choices n${n}">
+      ${node.choices.map((c, k) => `
+        <button class="choice" id="choice${k}" onclick="choose(${k})" aria-label="${esc(c.label)}">
+          <span class="mini" role="button" aria-label="Hear this choice" onclick="event.stopPropagation(); hearChoice(${k})">🔊</span>
           <span class="ic">${c.icon}</span><span class="lb">${esc(c.label)}</span>
         </button>`).join('')}
     </div>`);
+  prefetch(audioOf(node));
+  if (opt.quiet) return;
   const lines = [];
-  if (withTitle) lines.push(GAME.title);
-  lines.push({ ...m, el: '#scene-words' });
-  lines.push(...choiceLines(m));
-  if (!quiet) speak(lines);
+  if (opt.first) lines.push(GAME.title);
+  lines.push({ ...node, el: '#scene-words' });
+  if (opt.first) lines.push({ ...GAME.howFeel, el: '.faces' });
+  lines.push(...choiceLines());
+  speak(lines);
 }
-function choiceLines(m) {
-  return [GAME.choicesIntro,
-    { ...m.choices[0], el: '#choice0' }, GAME.or, { ...m.choices[1], el: '#choice1' }];
+function choiceLines() {
+  const cs = node.choices.map((c, k) => ({ ...c, el: '#choice' + k }));
+  return [GAME.choicesIntro, ...cs.slice(0, -1), GAME.or, cs[cs.length - 1]];
+}
+function hearChoice(k) { speak([{ ...node.choices[k], el: '#choice' + k }]); }
+
+function pickFace(i) {
+  const f = GAME.faces[i];
+  mood = f.mood;
+  missionScreen({ keep: true, quiet: true, picked: true });
+  if (f.mood === 'mad') document.getElementById('breathe-btn').classList.add('nudge');
+  if (f.mood === 'hmm') document.getElementById('peek-btn').classList.add('nudge');
+  speak([{ ...f, el: '#face' + i }]);
+}
+function peek() {
+  document.querySelectorAll('.nudge').forEach(e => e.classList.remove('nudge'));
+  speak([{ ...GAME.peekIntro, el: '#peek-btn' },
+    ...node.choices.map((c, k) => ({ ...c.peek, el: '#choice' + k, cls: 'peeking' }))]);
 }
 
 function choose(k) {
-  const c = GAME.missions[mission].choices[k], r = c.result;
-  const confetti = c.good ? `<div class="confetti">${Array.from({ length: 18 }, (_, i) =>
-      `<span style="left:${(i * 37) % 100}%;animation-delay:${(i % 6) * 0.15}s">${['⭐', '🎉', '✨'][i % 3]}</span>`).join('')}</div>` : '';
-  show(`<section class="panel ${c.good ? 'good-bg' : 'oops-bg'}">
-      ${confetti}${c.good ? `<div class="burst">${esc(GAME.goodBurst)}</div>` : ''}
+  const c = node.choices[k];
+  if (c.step) { node = c.step; if (mood === 'mad') mood = 'hmm'; missionScreen({ keep: true }); return; }
+  const r = c.result, m = GAME.missions[mission];
+  let newBadge = false;
+  if (c.good && !earned.includes(mission)) { earned.push(mission); stars++; newBadge = true; }
+  show(`${topbar()}
+    <section class="panel ${c.good ? 'good-bg' : 'oops-bg'}">
+      ${c.good ? confetti(18) + `<div class="burst">${esc(GAME.goodBurst)}</div>` : ''}
       ${speakerBtn()}
-      <div class="stage" style="margin-top:${c.good ? '18%' : '0'}">${heroSVG(c.good ? 'happy' : 'oops')}<span class="big-emoji">${r.icon}</span></div>
+      <div class="stage" style="margin-top:${c.good ? 'clamp(40px,9vh,100px)' : '0'}">${heroSVG(c.good ? 'happy' : 'oops')}<span class="big-emoji">${r.icon}</span></div>
       <p class="words" id="result-words">${esc(r.text)}</p>
+      ${c.good ? `<div class="badge-pop" id="badge"><span class="bi">${m.badge.icon}</span>${esc(m.badge.name)}</div>` : ''}
     </section>
     <div class="row">
       ${c.good
         ? `<button class="round huge go" onclick="next()" aria-label="Next">➜</button>`
         : `<button class="round huge back" onclick="tryAgain()" aria-label="Try again">⟲</button>`}
     </div>`);
-  speak([{ ...r, el: '#result-words' }]);
+  if (newBadge) document.getElementById('stars').classList.add('bump');
+  speak([{ ...r, el: '#result-words' }, ...(c.good ? [{ ...m.badge, el: '#badge' }] : [])]);
 }
-function next() { calm = false; mission++; mission < GAME.missions.length ? missionScreen() : endScreen(); }
-function tryAgain() { calm = false; missionScreen(); }
+function next() { mission++; mission < GAME.missions.length ? missionScreen() : endScreen(); }
+function tryAgain() { missionScreen(); }   // gentle rewind to the start of the same mission
 
 function endScreen() {
-  show(`<section class="panel" style="background-color:#fff3b0">
-      <div class="confetti">${Array.from({ length: 24 }, (_, i) =>
-        `<span style="left:${(i * 29) % 100}%;animation-delay:${(i % 8) * 0.2}s">${['⭐', '🎉', '✨'][i % 3]}</span>`).join('')}</div>
+  const C = GAME.certificate;
+  show(`<section class="panel cert" id="cert">
+      ${confetti(24)}
       ${speakerBtn()}
-      <div class="star">
-        <svg viewBox="0 0 100 100"><polygon points="50,3 62,36 97,37 69,58 79,92 50,72 21,92 31,58 3,37 38,36" fill="#ffd60a" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/></svg>
-        <p class="words" id="end-words">${esc(GAME.end.text)}</p>
-      </div>
+      <h2>${esc(C.title)}</h2>
       ${heroSVG('happy')}
+      <p class="name" id="cert-name">${esc(H.kid)}</p>
+      <p class="words" style="font-size:clamp(1.6rem,6vw,2.6rem)">${esc(C.text)}</p>
+      <div class="stars">⭐ ${stars}</div>
+      <div class="badges">${GAME.missions.map((m, i) => earned.includes(i) ? `<span title="${esc(m.badge.name)}">${m.badge.icon}</span>` : '').join('')}</div>
     </section>
-    <div class="row"><button class="round huge play" style="background:var(--green);animation:none" onclick="mission=0;calm=false;missionScreen()" aria-label="Play again">↻</button></div>`);
-  speak([{ ...GAME.end, el: '#end-words' }]);
+    <div class="row">
+      <button class="round huge print" onclick="window.print()" aria-label="Print">🖨️</button>
+      <button class="round huge go" onclick="mission=0;stars=0;earned=[];missionScreen()" aria-label="Play again">↻</button>
+    </div>`);
+  speak([{ ...C, el: '#cert-name' }]);
 }
 
 /* ---------- Breathe: 3 guided breaths ---------- */
@@ -357,20 +556,18 @@ function breathe() {
   const at = (ms, fn) => breathTimers.push(setTimeout(fn, ms));
   sayOne(B.start, tok);
   for (let i = 0; i < 3; i++) {
-    const t0 = 2200 + i * 8000;
+    const t0 = 2600 + i * 8000;
     at(t0, () => { bc.classList.add('big'); bc.textContent = i + 1; sayOne(B.in, voiceToken); });
     at(t0 + 4000, () => { bc.classList.remove('big'); sayOne(B.out, voiceToken); });
   }
-  at(2200 + 3 * 8000, () => endBreathe(true));
+  at(2600 + 3 * 8000, () => endBreathe(true));
 }
 function endBreathe(finished) {
   breathTimers.forEach(clearTimeout); breathTimers = [];
   breathEl.classList.remove('on'); breathEl.innerHTML = '';
-  calm = true;
-  // Back to the same mission, now with a calm face; read the choices again.
-  const m = GAME.missions[mission];
-  missionScreen(false, true);
-  speak([...(finished ? [GAME.breathe.done] : []), ...choiceLines(m)]);
+  mood = 'calm';
+  missionScreen({ keep: true, quiet: true });
+  speak([...(finished ? [GAME.breathe.done] : []), ...choiceLines()]);
 }
 
 titleScreen();
